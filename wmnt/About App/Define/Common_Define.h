@@ -34,8 +34,11 @@
 #define APPStateBar ([[UIApplication sharedApplication] statusBarFrame].size.height)
 #define APPNavStateBar ([[UIApplication sharedApplication] statusBarFrame].size.height + self.navigationController.navigationBar.frame.size.height)
 //设置字体
-#define SystemFont(s) [UIFont fontWithName:@"Avenir-Light" size:s] //Avenir-Roman
-#define SystemFoldFont(s) [UIFont fontWithName:@"Avenir-Roman" size:s] //Avenir-Medium
+#define SystemFont(s) [UIFont systemFontOfSize:s] //Avenir-Roman
+#define SystemFoldFont(s) [UIFont boldSystemFontOfSize:s] //Avenir-Medium
+#define CustomFont(s) [UIFont fontWithName:@"Avenir-Light" size:s] //Avenir-Roman
+#define CustomFoldFont(s) [UIFont fontWithName:@"Avenir-Roman" size:s] //Avenir-Medium
+
 /********************** 常用宏 ****************************/
 #pragma mark - 常用宏
 
@@ -218,6 +221,7 @@ static inline UIEdgeInsets UISafeAreaInsets(UIView * view){
 
 #define SEVERURL  @"SEVERURL"
 #define kSeverURL @"http://www.weimao.ink/"
+//#define kSeverURL @"http://123.56.22.22/"
 #define kUserDefaultsCookie @"kUserDefaultsCookie"
 //登录刷新
 #define LOGINSUCCESSNOTIFACTION @"LOGINSUCCESSNOTIFACTION"

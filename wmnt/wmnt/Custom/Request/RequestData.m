@@ -75,11 +75,11 @@
     dispatch_group_enter(group_request);
     
 //  iOS Token
-    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+//    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *deviceToken = [kUserDefaults objectForKey:@"deviceToken"];
 
 //    暂时不使用
-    NSString *requestJson = [NSString stringWithFormat:@"{\"token\":\"%@\",\"account\":\"%@\",\"pwd\":\"%@\"}",@"11111",username,password];
+    NSString *requestJson = [NSString stringWithFormat:@"{\"token\":\"%@\",\"account\":\"%@\",\"pwd\":\"%@\"}",deviceToken,username,password];
     NSString *urlString = [NSString stringWithFormat:@"%@%@",[APPData sharedappData].severUrl,intefacePath];
     NSDictionary *parameters = @{@"param" : requestJson};
     AFHTTPSessionManager *manage = [RequestData shareRequestData].httpManager;

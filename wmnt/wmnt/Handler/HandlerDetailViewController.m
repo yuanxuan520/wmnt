@@ -14,6 +14,8 @@
 #import "SelectUserViewController.h"
 #import "SetPopTextView.h"
 #import "SetPopNumTextView.h"
+#import "JMButton.h"
+
 #define contentLeft 10
 
 @interface HandlerDetailViewController ()<TZImagePickerControllerDelegate,UIGestureRecognizerDelegate>
@@ -63,6 +65,8 @@
 {
     self.contentView = [[UIView alloc] init];
     [self.mainView addSubview:self.contentView];
+    self.mainView.backgroundColor = [UIColor whiteColor];
+    self.contentView.backgroundColor = [UIColor whiteColor];
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.and.right.equalTo(self.mainView).with.insets(UIEdgeInsetsZero);
         make.width.equalTo(self.mainView);
@@ -107,14 +111,32 @@
     if (self.appointView == nil) {
         self.appointView = [[UIView alloc] init];
         self.appointView.backgroundColor = [UIColor whiteColor];
-        self.appointView.layer.cornerRadius = 10;
-        self.appointView.clipsToBounds = YES;
+        self.appointView.layer.borderColor = UIColorHex(0xe2e2e5).CGColor;
+        self.appointView.layer.borderWidth = 1;
+        self.appointView.layer.shadowRadius = 5;
+        self.appointView.layer.shadowOffset = CGSizeMake(0, 0);
+        self.appointView.layer.shadowOpacity = 0.2;
+        self.appointView.layer.shadowColor = UIColorHex(0xaaaaaa).CGColor;
+//        self.appointView.layer.cornerRadius = 10;
+//        self.appointView.clipsToBounds = YES;
         [self.contentView addSubview:self.appointView];
     }else {
         [self.appointView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-
+        [self.appointView removeFromSuperview];
+        self.appointView = nil;
+        self.appointView = [[UIView alloc] init];
+        self.appointView.backgroundColor = [UIColor whiteColor];
+        self.appointView.layer.borderColor = UIColorHex(0xe2e2e5).CGColor;
+        self.appointView.layer.borderWidth = 1;
+        self.appointView.layer.shadowRadius = 5;
+        self.appointView.layer.shadowOffset = CGSizeMake(0, 0);
+        self.appointView.layer.shadowOpacity = 0.2;
+        self.appointView.layer.shadowColor = UIColorHex(0xaaaaaa).CGColor;
+        //        self.appointView.layer.cornerRadius = 10;
+        //        self.appointView.clipsToBounds = YES;
+        [self.contentView addSubview:self.appointView];
     }
-    UILabel *typeLabel = [[UILabel alloc] init];
+    UIButton *typeImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     UILabel *appointOrderNoLabel = [[UILabel alloc] init];
     UILabel *appointDateLabel = [[UILabel alloc] init];
     UILabel *appointAddressLabel = [[UILabel alloc] init];
@@ -124,66 +146,55 @@
     UILabel *orderFinishReasonLabel = [[UILabel alloc] init];
 
     UIView *topView = [[UIView alloc] init];
-    topView.backgroundColor = [UIColor whiteColor];
-    topView.layer.borderColor = [UIColor colorFromHexRGB:@"ececec"].CGColor;
-    topView.layer.borderWidth = .5f;
     [appointView addSubview:topView];
     
-    appointOrderNoLabel.textColor = [UIColor colorFromHexRGB:@"555555"];
-    appointOrderNoLabel.font = SystemFont(14);
+    appointOrderNoLabel.textColor = [UIColor colorFromHexRGB:@"303033"];
+    appointOrderNoLabel.font = SystemFoldFont(14);
     
     //        appointTypeNameLabel.layer.backgroundColor = [UIColor colorFromHexRGB:@"fe943e"].CGColor;
     appointOrderNoLabel.textAlignment = NSTextAlignmentLeft;
     //        appointTypeNameLabel.numberOfLines = 2;
     [topView addSubview:appointOrderNoLabel];
     
-    appointTypeNameLabel.textColor = [UIColor colorFromHexRGB:@"555555"];
-    appointTypeNameLabel.font = SystemFont(14);
+    appointTypeNameLabel.textColor = [UIColor colorFromHexRGB:@"303033"];
+    appointTypeNameLabel.font = SystemFoldFont(14);
     
     //        appointTypeNameLabel.layer.backgroundColor = [UIColor colorFromHexRGB:@"fe943e"].CGColor;
     appointTypeNameLabel.textAlignment = NSTextAlignmentLeft;
     //        appointTypeNameLabel.numberOfLines = 2;
     [topView addSubview:appointTypeNameLabel];
     
-    
-    typeLabel.textColor = [UIColor whiteColor];
-    typeLabel.font = SystemFoldFont(12);
-    typeLabel.layer.cornerRadius = 5;
-    typeLabel.clipsToBounds = YES;
-    typeLabel.backgroundColor = [UIColor colorFromHexRGB:@"67C23A"];
-    typeLabel.textAlignment = NSTextAlignmentCenter;
-    //        appointTypeNameLabel.numberOfLines = 2;
-    [topView addSubview:typeLabel];
+    [topView addSubview:typeImgBtn];
     
     
-    appointDateLabel.textColor = [UIColor colorFromHexRGB:@"333333"];
-    appointDateLabel.font = SystemFont(13);
+    appointDateLabel.textColor = [UIColor colorFromHexRGB:@"1b1b1b"];
+    appointDateLabel.font = CustomFoldFont(13);
     //        appointTypeNameLabel.layer.backgroundColor = [UIColor colorFromHexRGB:@"fe943e"].CGColor;
     appointDateLabel.textAlignment = NSTextAlignmentLeft;
     //        appointTypeNameLabel.numberOfLines = 2;
     [appointView addSubview:appointDateLabel];
     
-    appointNameLabel.textColor = [UIColor colorFromHexRGB:@"333333"];
-    appointNameLabel.font = SystemFont(13);
+    appointNameLabel.textColor = [UIColor colorFromHexRGB:@"1b1b1b"];
+    appointNameLabel.font = CustomFoldFont(13);
     //        appointTypeNameLabel.layer.backgroundColor = [UIColor colorFromHexRGB:@"fe943e"].CGColor;
     appointNameLabel.textAlignment = NSTextAlignmentLeft;
     //        appointTypeNameLabel.numberOfLines = 2;
     [appointView addSubview:appointNameLabel];
     
-    appointPhoneLabel.textColor = [UIColor colorFromHexRGB:@"333333"];
-    appointPhoneLabel.font = SystemFont(13);
+    appointPhoneLabel.textColor = [UIColor colorFromHexRGB:@"1b1b1b"];
+    appointPhoneLabel.font = CustomFoldFont(13);
     //        appointTypeNameLabel.layer.backgroundColor = [UIColor colorFromHexRGB:@"fe943e"].CGColor;
     appointPhoneLabel.textAlignment = NSTextAlignmentLeft;
     //        appointTypeNameLabel.numberOfLines = 2;
     [appointView addSubview:appointPhoneLabel];
     
-    appointAddressLabel.textColor = [UIColor colorFromHexRGB:@"0a0a0a"];
-    appointAddressLabel.font = SystemFont(13);
+    appointAddressLabel.textColor = [UIColor colorFromHexRGB:@"1b1b1b"];
+    appointAddressLabel.font = CustomFoldFont(13);
     appointAddressLabel.numberOfLines = 0;//多行显示，计算高度
     [appointView addSubview:appointAddressLabel];
     
-    orderFinishReasonLabel.textColor = [UIColor colorFromHexRGB:@"0a0a0a"];
-    orderFinishReasonLabel.font = SystemFont(13);
+    orderFinishReasonLabel.textColor = [UIColor colorFromHexRGB:@"1b1b1b"];
+    orderFinishReasonLabel.font = CustomFoldFont(13);
     orderFinishReasonLabel.numberOfLines = 0;//多行显示，计算高度
     
     [appointView addSubview:orderFinishReasonLabel];
@@ -192,21 +203,19 @@
     
     appointOrderNoLabel.text = [NSString stringWithFormat:@"订单号：%@",self.orderDetailData[@"orderNo"]];
     
-    appointTypeNameLabel.text = [NSString stringWithFormat:@"服务类型：%@",self.orderDetailData[@"appointTypeName"]];
+    appointTypeNameLabel.text = [NSString stringWithFormat:@"预约类型：%@",self.orderDetailData[@"appointTypeName"]];
     if ([self.orderDetailData[@"type"] integerValue] == 1) {
-        typeLabel.text = @"正常";
-        typeLabel.backgroundColor = [UIColor colorFromHexRGB:@"67C23A"];
+        [typeImgBtn setImage:nil forState:UIControlStateNormal];
     }else {
-        typeLabel.text = @"紧急";
-        typeLabel.backgroundColor = [UIColor colorFromHexRGB:@"F56C6C"];
+        [typeImgBtn setImage:[UIImage imageNamed:@"urgency"] forState:UIControlStateNormal];
     }
     appointDateLabel.text = [NSString stringWithFormat:@"预约时间：%@",self.orderDetailData[@"appointDate"]];
     
-    appointNameLabel.text = [NSString stringWithFormat:@"预约人姓名：%@",self.orderDetailData[@"appointName"]];
+    appointNameLabel.text = [NSString stringWithFormat:@"名称：%@",self.orderDetailData[@"appointName"]];
     
-    appointPhoneLabel.text = [NSString stringWithFormat:@"联系方式：%@",self.orderDetailData[@"appointPhone"]];
+    appointPhoneLabel.text = [NSString stringWithFormat:@"手机号：%@",self.orderDetailData[@"appointPhone"]];
     
-    appointAddressLabel.text = [NSString stringWithFormat:@"预约地址：%@",self.orderDetailData[@"appointAddress"]];
+    appointAddressLabel.text = [NSString stringWithFormat:@"地址：%@",self.orderDetailData[@"appointAddress"]];
     
     NSString *orderFinishReason = self.orderDetailData[@"orderFinishReason"];
     if (!orderFinishReason) {
@@ -215,7 +224,7 @@
     orderFinishReasonLabel.text = [NSString stringWithFormat:@"拒绝原因：%@",orderFinishReason];
     
     [appointOrderNoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(5);
+        make.top.mas_equalTo(10);
         make.left.mas_equalTo(contentLeft);
         make.width.mas_equalTo(APPMainViewWidth);
         make.height.mas_equalTo(25);
@@ -228,11 +237,11 @@
         make.height.mas_equalTo(25);
     }];
     
-    [typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [typeImgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(10);
         make.right.mas_equalTo(-10);
-        make.width.mas_equalTo(35);
-        make.height.mas_equalTo(35);
+        make.width.mas_equalTo(30);
+        make.height.mas_equalTo(30);
     }];
     
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -242,50 +251,121 @@
         make.height.mas_equalTo(60);
     }];
     
-    [appointDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(topView.mas_bottom).offset(5);
+    UIImageView *lineView = [[UIImageView alloc] init];
+    [lineView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"xuxian"]]];
+    [self.appointView addSubview:lineView];
+    
+    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(topView.mas_bottom);
+        make.left.mas_equalTo(10);
+        make.right.mas_equalTo(-10);
+        make.height.mas_equalTo(0.5);
+    }];
+    
+    UIButton *appointDateImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [appointDateImgBtn setImage:[UIImage imageNamed:@"clock"] forState:UIControlStateNormal];
+    appointDateImgBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [appointDateImgBtn setImageEdgeInsets:UIEdgeInsetsMake(4, 4, 4, 4)];
+    [appointDateImgBtn setUserInteractionEnabled:NO];
+    [appointView addSubview:appointDateImgBtn];
+    [appointDateImgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(topView.mas_bottom).offset(10);
         make.left.mas_equalTo(contentLeft);
+        make.width.mas_equalTo(20);
+        make.height.mas_equalTo(20);
+    }];
+    [appointDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(topView.mas_bottom).offset(10);
+        make.left.mas_equalTo(appointDateImgBtn.mas_right).offset(2);
         make.width.mas_equalTo(APPMainViewWidth);
         make.height.mas_equalTo(20);
     }];
-    //
-    [appointNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    UIButton *appointNameImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [appointNameImgBtn setImage:[UIImage imageNamed:@"account"] forState:UIControlStateNormal];
+    appointNameImgBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [appointNameImgBtn setImageEdgeInsets:UIEdgeInsetsMake(2, 4, 4, 4)];
+    [appointNameImgBtn setUserInteractionEnabled:NO];
+    [appointView addSubview:appointNameImgBtn];
+    [appointNameImgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(appointDateLabel.mas_bottom).offset(5);
         //self.appointNameLabel
         make.left.mas_equalTo(contentLeft);
+        make.width.mas_equalTo(20);
+        make.height.mas_equalTo(20);
+    }];
+    [appointNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(appointDateLabel.mas_bottom).offset(5);
+        //self.appointNameLabel
+        make.left.mas_equalTo(appointNameImgBtn.mas_right).offset(2);
         make.width.mas_equalTo(APPMainViewWidth);
         make.height.mas_equalTo(20);
     }];
     
+    UIButton *appointPhoneImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [appointPhoneImgBtn setImage:[UIImage imageNamed:@"phone"] forState:UIControlStateNormal];
+    appointPhoneImgBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [appointPhoneImgBtn setImageEdgeInsets:UIEdgeInsetsMake(4, 4, 4, 4)];
+    [appointPhoneImgBtn setUserInteractionEnabled:NO];
+    [appointView addSubview:appointPhoneImgBtn];
+    [appointPhoneImgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(appointNameLabel.mas_bottom).offset(5);
+        //self.appointNameLabel
+        make.left.mas_equalTo(contentLeft);
+        make.width.mas_equalTo(20);
+        make.height.mas_equalTo(20);
+    }];
     [appointPhoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(appointNameLabel.mas_bottom).offset(5);
-        make.left.mas_equalTo(contentLeft);
+        make.left.mas_equalTo(appointPhoneImgBtn.mas_right).offset(2);
         make.width.mas_equalTo(APPMainViewWidth);
         make.height.mas_equalTo(20);
     }];
     
-    
+    UIButton *appointAddressImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [appointAddressImgBtn setImage:[UIImage imageNamed:@"map"] forState:UIControlStateNormal];
+    appointAddressImgBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [appointAddressImgBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 4, 4, 4)];
+    [appointAddressImgBtn setUserInteractionEnabled:NO];
+    [appointView addSubview:appointAddressImgBtn];
+    [appointAddressImgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(appointPhoneLabel.mas_bottom).offset(5);
+        //self.appointNameLabel
+        make.left.mas_equalTo(contentLeft);
+        make.width.mas_equalTo(20);
+        make.height.mas_equalTo(20);
+    }];
     [appointAddressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(appointPhoneLabel.mas_bottom).offset(5);
-        make.left.mas_equalTo(contentLeft);
+        make.left.mas_equalTo(appointAddressImgBtn.mas_right).offset(2);
         make.right.mas_equalTo(-5);
 //        make.bottom.equalTo(self.appointView).with.offset(-10);
     }];
     
-    [orderFinishReasonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIButton *orderFinishReasonImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [orderFinishReasonImgBtn setImage:[UIImage imageNamed:@"rejected-order"] forState:UIControlStateNormal];
+    orderFinishReasonImgBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [orderFinishReasonImgBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 4, 4, 4)];
+    [orderFinishReasonImgBtn setUserInteractionEnabled:NO];
+    [appointView addSubview:orderFinishReasonImgBtn];
+    [orderFinishReasonImgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(appointAddressLabel.mas_bottom).offset(5);
         make.left.mas_equalTo(contentLeft);
+        make.width.mas_equalTo(20);
+        make.height.mas_equalTo(20);
+    }];
+    [orderFinishReasonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(appointAddressLabel.mas_bottom).offset(5);
+        make.left.mas_equalTo(orderFinishReasonImgBtn.mas_right).offset(2);
         make.right.mas_equalTo(-5);
         make.bottom.equalTo(self.appointView).with.offset(-10);
     }];
     
     [self.appointView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(5);
-        make.left.mas_equalTo(5);
-        make.right.mas_equalTo(-5);
-        CGFloat w = APPMainViewWidth - 10;
-        make.width.mas_equalTo(w);
-        make.bottom.mas_equalTo(orderFinishReasonLabel.mas_bottom).offset(10);
+        make.top.mas_equalTo(10);
+        make.left.mas_equalTo(10);
+        make.right.mas_equalTo(-10);
+        make.bottom.mas_equalTo(orderFinishReasonLabel.mas_bottom).offset(20);
     }];
 }
 
@@ -295,37 +375,65 @@
     if (self.personView == nil) {
         self.personView = [[UIView alloc] init];
         self.personView.backgroundColor = [UIColor whiteColor];
-        self.personView.layer.cornerRadius = 10;
-        self.personView.clipsToBounds = YES;
+        self.personView.layer.borderColor = UIColorHex(0xe2e2e5).CGColor;
+        self.personView.layer.borderWidth = 1;
+        self.personView.layer.shadowRadius = 5;
+        self.personView.layer.shadowOffset = CGSizeMake(0, 0);
+        self.personView.layer.shadowOpacity = 0.2;
+        self.personView.layer.shadowColor = UIColorHex(0xaaaaaa).CGColor;
         [self.contentView addSubview:self.personView];
         
     }else {
         [self.personView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [self.personView removeFromSuperview];
+        self.personView = nil;
+        self.personView = [[UIView alloc] init];
+        self.personView.backgroundColor = [UIColor whiteColor];
+        self.personView.layer.borderColor = UIColorHex(0xe2e2e5).CGColor;
+        self.personView.layer.borderWidth = 1;
+        self.personView.layer.shadowRadius = 5;
+        self.personView.layer.shadowOffset = CGSizeMake(0, 0);
+        self.personView.layer.shadowOpacity = 0.2;
+        self.personView.layer.shadowColor = UIColorHex(0xaaaaaa).CGColor;
+        //        self.appointView.layer.cornerRadius = 10;
+        //        self.appointView.clipsToBounds = YES;
+        [self.contentView addSubview:self.personView];
     }
+    JMBaseButtonConfig *buttonConfig = [JMBaseButtonConfig buttonConfig];
+    buttonConfig.backgroundColor = UIColorHex(0x46a0fc);
+    buttonConfig.titleFont = CustomFoldFont(13);
+    buttonConfig.title = @"服务人员";
+    buttonConfig.cornerRadius = 15.f;
+    buttonConfig.corners = UIRectCornerBottomRight;
+    JMButton *titleBtn = [[JMButton alloc] initWithFrame:CGRectMake(0, 0, 80, 30) ButtonConfig:buttonConfig];
+    titleBtn.layer.shadowOffset = CGSizeMake(0, 1);
+    titleBtn.layer.shadowOpacity = 0.2;
+    titleBtn.layer.shadowColor = UIColorHex(0x000000).CGColor;
+    [personView addSubview:titleBtn];
     
     UILabel *serviceStaffNameLabel = [[UILabel alloc] init];
     UILabel *serviceStaffPhoneLabel = [[UILabel alloc] init];
     UILabel *staffMembersLabel = [[UILabel alloc] init];
     
-    serviceStaffNameLabel.textColor = [UIColor colorFromHexRGB:@"333333"];
-    serviceStaffNameLabel.font = SystemFont(13);
+    serviceStaffNameLabel.textColor = [UIColor colorFromHexRGB:@"1b1b1b"];
+    serviceStaffNameLabel.font = CustomFoldFont(13);
     //        appointTypeNameLabel.layer.backgroundColor = [UIColor colorFromHexRGB:@"fe943e"].CGColor;
     serviceStaffNameLabel.textAlignment = NSTextAlignmentLeft;
     //        appointTypeNameLabel.numberOfLines = 2;
     [personView addSubview:serviceStaffNameLabel];
     
-    serviceStaffPhoneLabel.textColor = [UIColor colorFromHexRGB:@"333333"];
-    serviceStaffPhoneLabel.font = SystemFont(13);
+    serviceStaffPhoneLabel.textColor = [UIColor colorFromHexRGB:@"1b1b1b"];
+    serviceStaffPhoneLabel.font = CustomFoldFont(13);
     //        appointTypeNameLabel.layer.backgroundColor = [UIColor colorFromHexRGB:@"fe943e"].CGColor;
     serviceStaffPhoneLabel.textAlignment = NSTextAlignmentLeft;
     //        appointTypeNameLabel.numberOfLines = 2;
     [personView addSubview:serviceStaffPhoneLabel];
     
-    staffMembersLabel.textColor = [UIColor colorFromHexRGB:@"333333"];
-    staffMembersLabel.font = SystemFont(13);
+    staffMembersLabel.textColor = [UIColor colorFromHexRGB:@"1b1b1b"];
+    staffMembersLabel.font = CustomFoldFont(13);
     //        appointTypeNameLabel.layer.backgroundColor = [UIColor colorFromHexRGB:@"fe943e"].CGColor;
     staffMembersLabel.textAlignment = NSTextAlignmentLeft;
-    staffMembersLabel.numberOfLines = 0;
+    staffMembersLabel.numberOfLines = 2;
     [personView addSubview:staffMembersLabel];
     
     serviceStaffNameLabel.text = [NSString stringWithFormat:@"带队人姓名：%@",self.orderDetailData[@"serviceStaffName"]];
@@ -349,39 +457,76 @@
     }
     staffMembersLabel.text = [NSString stringWithFormat:@"其他分派人员：%@",staffMembersStr];
     
-    [serviceStaffNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(5);
+    UIButton *serviceStaffNameImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [serviceStaffNameImgBtn setImage:[UIImage imageNamed:@"user"] forState:UIControlStateNormal];
+    serviceStaffNameImgBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [serviceStaffNameImgBtn setImageEdgeInsets:UIEdgeInsetsMake(4, 4, 4, 4)];
+    [serviceStaffNameImgBtn setUserInteractionEnabled:NO];
+    [personView addSubview:serviceStaffNameImgBtn];
+    [serviceStaffNameImgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(40);
         make.left.mas_equalTo(contentLeft);
-        make.width.mas_equalTo(APPMainViewWidth);
-        make.height.mas_equalTo(25);
+        make.width.mas_equalTo(20);
+        make.height.mas_equalTo(20);
     }];
     
+    [serviceStaffNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(40);
+        make.left.mas_equalTo(serviceStaffNameImgBtn.mas_right).offset(2);
+        make.right.mas_equalTo(-contentLeft);
+        make.height.mas_equalTo(20);
+    }];
     
-    [serviceStaffPhoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIButton *serviceStaffPhoneImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [serviceStaffPhoneImgBtn setImage:[UIImage imageNamed:@"phone"] forState:UIControlStateNormal];
+    serviceStaffPhoneImgBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [serviceStaffPhoneImgBtn setImageEdgeInsets:UIEdgeInsetsMake(4, 4, 4, 4)];
+    [serviceStaffPhoneImgBtn setUserInteractionEnabled:NO];
+    [personView addSubview:serviceStaffPhoneImgBtn];
+    [serviceStaffPhoneImgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(serviceStaffNameLabel.mas_bottom).offset(5);
         make.left.mas_equalTo(contentLeft);
-        make.width.mas_equalTo(APPMainViewWidth);
-        make.height.mas_equalTo(25);
+        make.width.mas_equalTo(20);
+        make.height.mas_equalTo(20);
+    }];
+    [serviceStaffPhoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(serviceStaffNameLabel.mas_bottom).offset(5);
+        make.left.mas_equalTo(serviceStaffPhoneImgBtn.mas_right).offset(2);
+        make.right.mas_equalTo(-contentLeft);
+        make.height.mas_equalTo(20);
     }];
     
-    [staffMembersLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIButton *staffMembersImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [staffMembersImgBtn setImage:[UIImage imageNamed:@"other-user"] forState:UIControlStateNormal];
+    staffMembersImgBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [staffMembersImgBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 4, 4, 4)];
+    [staffMembersImgBtn setUserInteractionEnabled:NO];
+    [personView addSubview:staffMembersImgBtn];
+    [staffMembersImgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(serviceStaffPhoneLabel.mas_bottom).offset(5);
         make.left.mas_equalTo(contentLeft);
-        make.right.mas_equalTo(-5);
+        make.width.mas_equalTo(20);
+        make.height.mas_equalTo(20);
+    }];
+    [staffMembersLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(serviceStaffPhoneLabel.mas_bottom).offset(5);
+        make.left.mas_equalTo(staffMembersImgBtn.mas_right).offset(2);
+        make.right.mas_equalTo(-contentLeft);
         make.bottom.equalTo(self.personView).with.offset(-10);
+        make.height.mas_lessThanOrEqualTo(20);
     }];
     
     [self.personView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.appointView.mas_bottom).offset(10);
-        make.left.mas_equalTo(5);
-        make.right.mas_equalTo(-5);
+        make.left.mas_equalTo(10);
+        make.right.mas_equalTo(-10);
         //        make.edges.mas_equalTo(self.mainView);
         CGFloat w = APPMainViewWidth - 10;
         make.width.mas_equalTo(w);
 //        make.leading.mas_equalTo(self.appointView.mas_trailing);
 //        make.height.mas_equalTo(1000);
         // 让scrollview的contentSize随着内容的增多而变化
-        make.bottom.mas_equalTo(staffMembersLabel.mas_bottom).offset(10);
+        make.bottom.mas_equalTo(staffMembersLabel.mas_bottom).offset(20);
     }];
 }
 
@@ -391,44 +536,75 @@
     if (self.finishView == nil) {
         self.finishView = [[UIView alloc] init];
         self.finishView.backgroundColor = [UIColor whiteColor];
-        self.finishView.layer.cornerRadius = 10;
-        self.finishView.clipsToBounds = YES;
+        self.finishView.layer.borderColor = UIColorHex(0xe2e2e5).CGColor;
+        self.finishView.layer.borderWidth = 1;
+        self.finishView.layer.shadowRadius = 5;
+        self.finishView.layer.shadowOffset = CGSizeMake(0, 0);
+        self.finishView.layer.shadowOpacity = 0.2;
+        self.finishView.layer.shadowColor = UIColorHex(0xaaaaaa).CGColor;
         [self.contentView addSubview:self.finishView];
     }else {
         [self.finishView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [self.finishView removeFromSuperview];
+        self.finishView = nil;
+        self.finishView = [[UIView alloc] init];
+        self.finishView.backgroundColor = [UIColor whiteColor];
+        self.finishView.layer.borderColor = UIColorHex(0xe2e2e5).CGColor;
+        self.finishView.layer.borderWidth = 1;
+        self.finishView.layer.shadowRadius = 5;
+        self.finishView.layer.shadowOffset = CGSizeMake(0, 0);
+        self.finishView.layer.shadowOpacity = 0.2;
+        self.finishView.layer.shadowColor = UIColorHex(0xaaaaaa).CGColor;
+        //        self.appointView.layer.cornerRadius = 10;
+        //        self.appointView.clipsToBounds = YES;
+        [self.contentView addSubview:self.finishView];
     }
+    
+    JMBaseButtonConfig *buttonConfig = [JMBaseButtonConfig buttonConfig];
+    buttonConfig.backgroundColor = UIColorHex(0x46a0fc);
+    buttonConfig.titleFont = CustomFoldFont(13);
+    buttonConfig.title = @"服务情况";
+    buttonConfig.cornerRadius = 15.f;
+    buttonConfig.corners = UIRectCornerBottomRight;
+    JMButton *titleBtn = [[JMButton alloc] initWithFrame:CGRectMake(0, 0, 80, 30) ButtonConfig:buttonConfig];
+//    titleBtn.layer.shadowRadius = 5;
+    titleBtn.layer.shadowOffset = CGSizeMake(0, 1);
+    titleBtn.layer.shadowOpacity = 0.2;
+    titleBtn.layer.shadowColor = UIColorHex(0x000000).CGColor;
+    [finishView addSubview:titleBtn];
+    
     UILabel *receiveTimeLabel = [[UILabel alloc] init];
     UILabel *finishTimeLabel = [[UILabel alloc] init];
     UILabel *rechargeAmtLabel = [[UILabel alloc] init];
     UILabel *finishPictureLabel = [[UILabel alloc] init];
     UIView *finishPictureView = [[UIView alloc] init];
     
-    receiveTimeLabel.textColor = [UIColor colorFromHexRGB:@"333333"];
-    receiveTimeLabel.font = SystemFont(14);
+    receiveTimeLabel.textColor = [UIColor colorFromHexRGB:@"1b1b1b"];
+    receiveTimeLabel.font = CustomFoldFont(13);
     receiveTimeLabel.textAlignment = NSTextAlignmentLeft;
     [finishView addSubview:receiveTimeLabel];
     
-    finishTimeLabel.textColor = [UIColor colorFromHexRGB:@"333333"];
-    finishTimeLabel.font = SystemFont(14);
+    finishTimeLabel.textColor = [UIColor colorFromHexRGB:@"1b1b1b"];
+    finishTimeLabel.font = CustomFoldFont(13);
     finishTimeLabel.textAlignment = NSTextAlignmentLeft;
     [finishView addSubview:finishTimeLabel];
     
-    rechargeAmtLabel.textColor = [UIColor colorFromHexRGB:@"333333"];
-    rechargeAmtLabel.font = SystemFont(14);
+    rechargeAmtLabel.textColor = [UIColor colorFromHexRGB:@"1b1b1b"];
+    rechargeAmtLabel.font = CustomFoldFont(13);
     rechargeAmtLabel.textAlignment = NSTextAlignmentLeft;
     [finishView addSubview:rechargeAmtLabel];
     
-    finishPictureLabel.textColor = [UIColor colorFromHexRGB:@"333333"];
-    finishPictureLabel.font = SystemFont(14);
+    finishPictureLabel.textColor = [UIColor colorFromHexRGB:@"1b1b1b"];
+    finishPictureLabel.font = CustomFoldFont(13);
     finishPictureLabel.textAlignment = NSTextAlignmentLeft;
     [finishView addSubview:finishPictureLabel];
     
     [finishView addSubview:finishPictureView];
     
-    receiveTimeLabel.text = [NSString stringWithFormat:@"服务接单时间：%@",self.orderDetailData[@"receiveTime"]];
+    receiveTimeLabel.text = [NSString stringWithFormat:@"接单时间：%@",self.orderDetailData[@"receiveTime"]];
     
     //   设置数据
-    finishTimeLabel.text = [NSString stringWithFormat:@"服务完成时间：%@",self.orderDetailData[@"finishTime"]];
+    finishTimeLabel.text = [NSString stringWithFormat:@"完成时间：%@",self.orderDetailData[@"finishTime"]];
     
     NSString *rechargeAmt = self.orderDetailData[@"rechargeAmt"];
     if (!rechargeAmt) {
@@ -438,32 +614,80 @@
     }
     rechargeAmtLabel.text = [NSString stringWithFormat:@"交易金额：%@",rechargeAmt];
     
-    [receiveTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(5);
+    
+    UIButton *receiveTimeImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [receiveTimeImgBtn setImage:[UIImage imageNamed:@"clock"] forState:UIControlStateNormal];
+    receiveTimeImgBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [receiveTimeImgBtn setImageEdgeInsets:UIEdgeInsetsMake(4, 4, 4, 4)];
+    [receiveTimeImgBtn setUserInteractionEnabled:NO];
+    [finishView addSubview:receiveTimeImgBtn];
+    [receiveTimeImgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(40);
         make.left.mas_equalTo(contentLeft);
-        make.width.mas_equalTo(APPMainViewWidth);
-        make.height.mas_equalTo(25);
+        make.width.mas_equalTo(20);
+        make.height.mas_equalTo(20);
+    }];
+    [receiveTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(40);
+        make.left.mas_equalTo(receiveTimeImgBtn.mas_right).offset(2);
+        make.right.mas_equalTo(-contentLeft);
+        make.height.mas_equalTo(20);
     }];
     
-    [finishTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIButton *finishTimeImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [finishTimeImgBtn setImage:[UIImage imageNamed:@"success"] forState:UIControlStateNormal];
+    finishTimeImgBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [finishTimeImgBtn setImageEdgeInsets:UIEdgeInsetsMake(4, 4, 4, 4)];
+    [finishTimeImgBtn setUserInteractionEnabled:NO];
+    [finishView addSubview:finishTimeImgBtn];
+    [finishTimeImgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(receiveTimeLabel.mas_bottom).offset(5);
         make.left.mas_equalTo(contentLeft);
-        make.width.mas_equalTo(APPMainViewWidth);
+        make.width.mas_equalTo(20);
         make.height.mas_equalTo(20);
     }];
-    //
-    [rechargeAmtLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(finishTimeLabel.mas_bottom).offset(5);
-        //self.appointNameLabel
-        make.left.mas_equalTo(contentLeft);
-        make.width.mas_equalTo(APPMainViewWidth);
+    [finishTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(receiveTimeLabel.mas_bottom).offset(5);
+        make.left.mas_equalTo(finishTimeImgBtn.mas_right).offset(2);
+        make.right.mas_equalTo(-contentLeft);
         make.height.mas_equalTo(20);
     }];
     
-    [finishPictureLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIButton *rechargeAmtImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [rechargeAmtImgBtn setImage:[UIImage imageNamed:@"rmb"] forState:UIControlStateNormal];
+    rechargeAmtImgBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [rechargeAmtImgBtn setImageEdgeInsets:UIEdgeInsetsMake(4, 4, 4, 4)];
+    [rechargeAmtImgBtn setUserInteractionEnabled:NO];
+    [finishView addSubview:rechargeAmtImgBtn];
+    [rechargeAmtImgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(finishTimeLabel.mas_bottom).offset(5);
+        make.left.mas_equalTo(contentLeft);
+        make.width.mas_equalTo(20);
+        make.height.mas_equalTo(20);
+    }];
+    [rechargeAmtLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(finishTimeLabel.mas_bottom).offset(5);
+        make.left.mas_equalTo(rechargeAmtImgBtn.mas_right).offset(2);
+        make.right.mas_equalTo(-contentLeft);
+        make.height.mas_equalTo(20);
+    }];
+    
+    UIButton *finishPictureImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [finishPictureImgBtn setImage:[UIImage imageNamed:@"picture"] forState:UIControlStateNormal];
+    finishPictureImgBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [finishPictureImgBtn setImageEdgeInsets:UIEdgeInsetsMake(4, 4, 4, 4)];
+    [finishPictureImgBtn setUserInteractionEnabled:NO];
+    [finishView addSubview:finishPictureImgBtn];
+    [finishPictureImgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(rechargeAmtLabel.mas_bottom).offset(5);
         make.left.mas_equalTo(contentLeft);
-        make.width.mas_equalTo(APPMainViewWidth);
+        make.width.mas_equalTo(20);
+        make.height.mas_equalTo(20);
+    }];
+    [finishPictureLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(rechargeAmtLabel.mas_bottom).offset(5);
+        make.left.mas_equalTo(finishPictureImgBtn.mas_right).offset(2);
+        make.right.mas_equalTo(-contentLeft);
         make.height.mas_equalTo(20);
     }];
     
@@ -509,12 +733,12 @@
         [finishPictureView addSubview:picBtn];
         [picBtn mas_makeConstraints:^(MASConstraintMaker *make) {
                 //计算距离顶部的公式 60 = 上一个距离顶部的高度 + UIlabel的高度
-            float colTop = (i/lineNum*10 + i/lineNum * 100.0f );
+            float colTop = (i/lineNum*10 + i/lineNum * 90.0f );
             make.top.mas_equalTo(colTop);
-            make.height.mas_equalTo(100.0f);
-            make.width.mas_equalTo(100.0f);
+            make.height.mas_equalTo(90.0f);
+            make.width.mas_equalTo(90.0f);
             if (i%lineNum == 0) {
-                make.left.offset(0);
+                make.left.offset(20);
             }else{
                 //当时中间列的时候 在上一个UIlabel的右边 添加20个 距离 并且设置等高
                 make.left.equalTo(lastPicBtn.mas_right).offset(10.0f);
@@ -540,17 +764,17 @@
     
     [self.finishView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.personView.mas_bottom).offset(10);
-        make.left.mas_equalTo(5);
-        make.right.mas_equalTo(-5);
+        make.left.mas_equalTo(10);
+        make.right.mas_equalTo(-10);
         //        make.edges.mas_equalTo(self.mainView);
         CGFloat w = APPMainViewWidth - 10;
         make.width.mas_equalTo(w);
 //        make.leading.mas_equalTo(self.personView.mas_trailing);
 
         // 让scrollview的contentSize随着内容的增多而变化
-        make.bottom.mas_equalTo(finishPictureView.mas_bottom).offset(10);
+        make.bottom.mas_equalTo(finishPictureView.mas_bottom).offset(20);
     }];
-    
+//    [self.contentView ]
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.finishView.mas_bottom).offset(10);
     }];
@@ -598,16 +822,19 @@
                 acceptBtn.titleLabel.font = SystemFont(14);
                 acceptBtn.userInteractionEnabled = YES;
                 [acceptBtn setTitle:@"接受订单" forState:UIControlStateNormal];
-                acceptBtn.clipsToBounds = YES;
+                [acceptBtn setImage:[UIImage imageNamed:@"agree-order"] forState:UIControlStateNormal];
+                [acceptBtn setTintColor:[UIColor whiteColor]];
+                [acceptBtn setImageEdgeInsets:UIEdgeInsetsMake(10, 0, 10, 0)];
+                [acceptBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
                 acceptBtn.backgroundColor = [UIColor colorFromHexRGB:@"67C23A"];
-                acceptBtn.layer.cornerRadius = 5;
+                acceptBtn.layer.cornerRadius = 10;
                 [acceptBtn addTarget:self action:@selector(acceptOrder:) forControlEvents:UIControlEventTouchUpInside];
                 [acceptBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [self.opratiosToolbar addSubview:acceptBtn];
                 [acceptBtn mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.top.mas_equalTo(5);
                     make.right.mas_equalTo(-20);
-                    make.width.mas_equalTo(100);
+                    make.width.mas_equalTo(110);
                     make.height.mas_equalTo(40);
                 }];
                 
@@ -616,16 +843,19 @@
                 refuseBtn.titleLabel.font = SystemFont(14);
                 refuseBtn.userInteractionEnabled = YES;
                 [refuseBtn setTitle:@"拒绝订单" forState:UIControlStateNormal];
-                //                refuseBtn.clipsToBounds = YES;
+                [refuseBtn setImage:[UIImage imageNamed:@"rejected-order"] forState:UIControlStateNormal];
+                [refuseBtn setTintColor:[UIColor whiteColor]];
+                [refuseBtn setImageEdgeInsets:UIEdgeInsetsMake(10, 0, 10, 0)];
+                [refuseBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
                 refuseBtn.backgroundColor = [UIColor colorFromHexRGB:@"F56C6C"];
-                refuseBtn.layer.cornerRadius = 5;
+                refuseBtn.layer.cornerRadius = 10;
                 [refuseBtn addTarget:self action:@selector(refuseOrder:) forControlEvents:UIControlEventTouchUpInside];
                 [refuseBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [self.opratiosToolbar addSubview:refuseBtn];
                 [refuseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.top.mas_equalTo(5);
                     make.right.mas_equalTo(acceptBtn.mas_left).offset(-20);
-                    make.width.mas_equalTo(100);
+                    make.width.mas_equalTo(110);
                     make.height.mas_equalTo(40);
                 }];
             }else {
@@ -640,53 +870,65 @@
                 UIButton *affirmBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
                 affirmBtn.titleLabel.font = SystemFont(14);
                 affirmBtn.userInteractionEnabled = YES;
+                affirmBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
                 [affirmBtn setTitle:@"确认订单" forState:UIControlStateNormal];
-                affirmBtn.clipsToBounds = YES;
+//                affirmBtn.clipsToBounds = YES;
+                [affirmBtn setImage:[UIImage imageNamed:@"agree-order"] forState:UIControlStateNormal];
+                [affirmBtn setTintColor:[UIColor whiteColor]];
+                [affirmBtn setImageEdgeInsets:UIEdgeInsetsMake(10, 0, 10, 0)];
+                [affirmBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
                 affirmBtn.backgroundColor = [UIColor colorFromHexRGB:@"67C23A"];
-                affirmBtn.layer.cornerRadius = 5;
+                affirmBtn.layer.cornerRadius = 10;
                 [affirmBtn addTarget:self action:@selector(affirmOrder:) forControlEvents:UIControlEventTouchUpInside];
                 [affirmBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [self.opratiosToolbar addSubview:affirmBtn];
                 [affirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.top.mas_equalTo(5);
                     make.centerX.mas_equalTo(self.opratiosToolbar.mas_centerX);
-                    make.width.mas_equalTo(100);
+                    make.width.mas_equalTo(110);
                     make.height.mas_equalTo(40);
                 }];
                 
             } else if (status == 10) {
-                //接受按钮
+                //上传图片
                 UIButton *uploadImgBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
                 uploadImgBtn.titleLabel.font = SystemFont(14);
                 uploadImgBtn.userInteractionEnabled = YES;
                 [uploadImgBtn setTitle:@"上传照片" forState:UIControlStateNormal];
-                uploadImgBtn.clipsToBounds = YES;
+                [uploadImgBtn setImage:[UIImage imageNamed:@"picture"] forState:UIControlStateNormal];
+                [uploadImgBtn setTintColor:[UIColor whiteColor]];
+                [uploadImgBtn setImageEdgeInsets:UIEdgeInsetsMake(10, 0, 10, 0)];
+                [uploadImgBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
                 uploadImgBtn.backgroundColor = [UIColor colorFromHexRGB:@"67C23A"];
-                uploadImgBtn.layer.cornerRadius = 5;
+                uploadImgBtn.layer.cornerRadius = 10;
                 [uploadImgBtn addTarget:self action:@selector(uploadOrderImg:) forControlEvents:UIControlEventTouchUpInside];
                 [uploadImgBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [self.opratiosToolbar addSubview:uploadImgBtn];
                 [uploadImgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.top.mas_equalTo(5);
                     make.right.mas_equalTo(-20);
-                    make.width.mas_equalTo(100);
+                    make.width.mas_equalTo(110);
                     make.height.mas_equalTo(40);
                 }];
                 
-                //拒绝按钮
+                //完成订单
                 UIButton *finishOrderBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
                 finishOrderBtn.titleLabel.font = SystemFont(14);
                 finishOrderBtn.userInteractionEnabled = YES;
                 [finishOrderBtn setTitle:@"完成订单" forState:UIControlStateNormal];
+//                [finishOrderBtn setImage:[UIImage imageNamed:@"success"] forState:UIControlStateNormal];
                 finishOrderBtn.backgroundColor = [UIColor colorFromHexRGB:@"409EFF"];
-                finishOrderBtn.layer.cornerRadius = 5;
+                finishOrderBtn.layer.cornerRadius = 10;
+                [finishOrderBtn setImage:[UIImage imageNamed:@"success"] forState:UIControlStateNormal];
+                [finishOrderBtn setTintColor:[UIColor whiteColor]];
+                [finishOrderBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
                 [finishOrderBtn addTarget:self action:@selector(finishOrder:) forControlEvents:UIControlEventTouchUpInside];
                 [finishOrderBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [self.opratiosToolbar addSubview:finishOrderBtn];
                 [finishOrderBtn mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.top.mas_equalTo(5);
                     make.right.mas_equalTo(uploadImgBtn.mas_left).offset(-20);
-                    make.width.mas_equalTo(100);
+                    make.width.mas_equalTo(110);
                     make.height.mas_equalTo(40);
                 }];
             }else {
@@ -756,7 +998,7 @@
 // 确认订单
 - (void)affirmOrder:(UIButton *)btn
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确认要接单么？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"是否确认要开始订单？" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
@@ -921,11 +1163,7 @@
 
 - (void)finishBack
 {
-    kSelfWeak;
-    int64_t sec = (int64_t)(2 * NSEC_PER_SEC);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, sec), dispatch_get_main_queue(), ^{
-        [self.navigationController popViewControllerAnimated:YES];
-    });
+   [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - 接口请求部分
@@ -991,7 +1229,7 @@
                     switch (code) {
                         case 1001:
                         {
-                            [WSProgressHUD showShimmeringString:@"人员已分配" maskType:WSProgressHUDMaskTypeDefault];
+                            [WSProgressHUD showSuccessWithStatus:@"人员分配成功"];
                             [WSProgressHUD autoDismiss:2];
                             [weakSelf finishBack];
                         }
@@ -1064,7 +1302,7 @@
                     switch (code) {
                         case 1001:
                         {
-                            [WSProgressHUD showShimmeringString:@"订单已确认" maskType:WSProgressHUDMaskTypeDefault];
+                            [WSProgressHUD showSuccessWithStatus:@"订单已确认"];
                             [WSProgressHUD autoDismiss:2];
                             [weakSelf finishBack];
 //                            [weakSelf requestDetailData];

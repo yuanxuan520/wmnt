@@ -173,7 +173,7 @@
     
     passwordField.rightView = dhPwdBtn;
     passwordField.rightViewMode = UITextFieldViewModeAlways;
-    passwordField.text = @"111111";
+    passwordField.text = @"";
     [mainView addSubview:passwordField];
     
     [passwordField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -345,7 +345,7 @@
         if ([[json objectForKey:@"code"] integerValue] == 1001) {
             [self loginSuccess:json];
         }else{
-            [WSProgressHUD showShimmeringString:@"登录失败" maskType:WSProgressHUDMaskTypeClear maskWithout:WSProgressHUDMaskWithoutDefault];
+            [WSProgressHUD showShimmeringString:json[@"msg"] maskType:WSProgressHUDMaskTypeClear maskWithout:WSProgressHUDMaskWithoutDefault];
             [WSProgressHUD autoDismiss:1.5];
         }
     } failedBlock:^(NSError *error) {

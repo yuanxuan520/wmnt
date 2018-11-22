@@ -12,10 +12,13 @@
 
 #import "LoginViewController.h"
 #import "HandlerViewController.h"
+#import "HandlerDetailViewController.h"
 #import "ServerViewController.h"
 #import "MeViewController.h"
 @interface AppDelegate ()<CoreStatusProtocol>
-
+{
+    YXTabBarController *curTabBarController;
+}
 @end
 
 @implementation AppDelegate
@@ -140,23 +143,38 @@
     //    [alert show];
     //    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     //    pasteboard.string = msg;
-    //推送 进入(工作功能)
-//    BOOL isLogin = [[[NSUserDefaults standardUserDefaults] objectForKey:@"isLogin"] boolValue];
+    id cookieStr = [USERDEFAULTS objectForKey:kUserDefaultsCookie];
+    if (cookieStr && [cookieStr isKindOfClass:[NSString class]]) {
+        NSDictionary *func = [userInfo objectForKey:@"func"];
+        if (func) {
+            NSString *orderNo = [func objectForKey:@"orderNo"];
+            NSString *alertTitle = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
+            UIAlertController *alertControl = [UIAlertController alertControllerWithTitle:nil message:alertTitle preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *lookAction = [UIAlertAction actionWithTitle:@"查看" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                self->curTabBarController.selectedIndex = 0;
+                YXNavigationController *curNavControl = [self->curTabBarController.viewControllers objectAtIndex:0];
+                HandlerDetailViewController *handlerDetailViewController = [[HandlerDetailViewController alloc] init];
+                handlerDetailViewController.title = @"订单详情";
+                handlerDetailViewController.orderNo = orderNo;
+                handlerDetailViewController.hidesBottomBarWhenPushed = YES;
+                [curNavControl pushViewController:handlerDetailViewController animated:YES];
+            }];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            [alertControl addAction:lookAction];
+            [alertControl addAction:cancelAction];
+            [self.viewController presentViewController:alertControl animated:YES completion:^{
+                
+            }];
+
+        }
+        
+    }
+    
+    
+    
 //    if (isLogin) {
-//        NSDictionary *func = [userInfo objectForKey:@"func"];
-//        if (func) {
-//            notifactionUserInfo = userInfo; //objectForKey:@"title"]
-//            id noticeAlertTitle = [[notifactionUserInfo objectForKey:@"aps"] objectForKey:@"alert"];
-//            NSString *alertTitle = @"";
-//            if ([noticeAlertTitle isKindOfClass:[NSString class]]) {
-//                alertTitle = noticeAlertTitle;
-//            }else{
-//                alertTitle = [[[notifactionUserInfo objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"body"];
-//            }
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:alertTitle delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"查看", nil];
-//            alert.tag = 22222;
-//            [alert show];
-//        }
 //    }
 }
 
@@ -219,6 +237,7 @@
     YXTabBarController *tabBarController = [[YXTabBarController alloc] init];
     tabBarController.tabBar.tintColor = [UIColor colorFromHexRGB:@"eeb244"];
     APPDATA.tabbarHeight = tabBarController.tabBar.frame.size.height;
+    curTabBarController = tabBarController;
 //    NSString *deptid = [NSString stringWithFormat:@"%@",[kUserDefaults objectForKey:@"userInfo"][@"deptid"]];
 //    if ([deptid isEqualToString:@"1"]) {//  管理人员
         // 首页
@@ -234,7 +253,6 @@
                                                               [UIFont fontWithName:@"Helvetica" size:11.0], NSFontAttributeName, nil]
                                                     forState:UIControlStateSelected];
     YXNavigationController *handlerNavViewController = [[YXNavigationController alloc]initWithRootViewController:handlerViewController];
-    
     // 我的
     MeViewController *meViewController = [[MeViewController alloc] init];
     meViewController.title = @"我的";

@@ -148,7 +148,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)addNoDataView:(UIView *)view
+{
+    self.noDataView = [TipContentView showView:view addContentImg:@"empty" title:@"暂无内容"];
+}
 /*
  #pragma mark - Navigation
  
